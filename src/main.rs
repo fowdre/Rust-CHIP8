@@ -28,8 +28,8 @@ fn main() -> Result<(), std::io::Error> {
             constants::SCREEN_WIDTH as f32,
             constants::SCREEN_HEIGHT as f32,
         ),
+        Color::new(255, 200, 45, 255),
         Color::new(45, 10, 45, 255),
-        Color::new(100, 20, 70, 255),
         48.0,
     );
     display.center(&rl_handle);

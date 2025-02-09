@@ -1,5 +1,7 @@
 use super::constants::chip8_constants;
 
+mod instructions;
+
 // TODO: remove this
 pub fn test(chip8: &mut Chip8, instruction: Instruction) {
     todo!("opcode: {:04X?}", instruction.opcode);
@@ -44,8 +46,22 @@ impl Chip8 {
             display: [false; 64 * 32],
             opcode: 0,
             lookup: [
-                test, test, test, test, test, test, test, test, test, test, test, test, test, test,
-                test, test,
+                instructions::_0xxx::_0xxx,
+                instructions::_1xxx::_1xxx,
+                test, // 2
+                test, // 3
+                test, // 4
+                test, // 5
+                instructions::_6xxx::_6xxx,
+                test, // 7
+                test, // 8
+                test, // 9
+                instructions::_Axxx::_Axxx,
+                test, // B
+                test, // C
+                instructions::_Dxxx::_Dxxx,
+                test, // E
+                test, // F
             ],
         }
     }
