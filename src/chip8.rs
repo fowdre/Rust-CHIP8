@@ -53,7 +53,7 @@ impl Chip8 {
                 test, // 4
                 test, // 5
                 instructions::_6xxx::_6xxx,
-                test, // 7
+                instructions::_7xxx::_7xxx,
                 test, // 8
                 test, // 9
                 instructions::_Axxx::_Axxx,
