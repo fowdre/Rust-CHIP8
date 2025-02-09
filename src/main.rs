@@ -48,10 +48,12 @@ fn main() -> Result<(), std::io::Error> {
         } else {
             // The inside of this block will run at `constants::FPS` frames per second
             timer += constants::FRAME_TIME - frame_time;
+
+            chip8.step();
         }
 
         // Non frame-rate dependent logic here
-        // display.update(&mut rl_handle, &rl_thread, &screen);
+        display.update(&mut rl_handle, &rl_thread, chip8.get_display());
 
         // Drawing
         let mut d = rl_handle.begin_drawing(&rl_thread);

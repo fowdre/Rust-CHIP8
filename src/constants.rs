@@ -6,6 +6,7 @@ pub const SCREEN_WIDTH: usize = 64;
 pub const SCREEN_HEIGHT: usize = 32;
 
 pub mod chip8_constants {
+    pub const RAM_SIZE: usize = 4096;
     pub const START_ADDRESS: usize = 0x200;
     pub const FONTSET_START_ADDRESS: usize = 0x50;
     pub const FONTSET_SIZE: usize = 80; // in bytes
