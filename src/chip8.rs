@@ -17,6 +17,9 @@ pub struct Chip8 {
     delay_timer: u8,
     sound_timer: u8,
     keypad: [bool; 16],
+    key_pressed: bool,
+    key_register: u8,
+    pause_flag: bool,
     display: [bool; 64 * 32],
     opcode: u16,
     lookup: [fn(&mut Chip8, Instruction); 16],
@@ -43,25 +46,28 @@ impl Chip8 {
             delay_timer: 0,
             sound_timer: 0,
             keypad: [false; 16],
+            key_pressed: false,
+            key_register: 0,
+            pause_flag: false,
             display: [false; 64 * 32],
             opcode: 0,
             lookup: [
                 instructions::_0xxx::_0xxx,
                 instructions::_1xxx::_1xxx,
-                test, // 2
-                test, // 3
-                test, // 4
-                test, // 5
+                instructions::_2xxx::_2xxx,
+                instructions::_3xxx::_3xxx,
+                instructions::_4xxx::_4xxx,
+                instructions::_5xxx::_5xxx,
                 instructions::_6xxx::_6xxx,
                 instructions::_7xxx::_7xxx,
-                test, // 8
-                test, // 9
+                instructions::_8xxx::_8xxx,
+                instructions::_9xxx::_9xxx,
                 instructions::_Axxx::_Axxx,
                 test, // B
                 test, // C
                 instructions::_Dxxx::_Dxxx,
                 test, // E
-                test, // F
+                instructions::_Fxxx::_Fxxx,
             ],
         }
     }

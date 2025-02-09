@@ -15,7 +15,8 @@ fn DRW_Vx_Vy_n(chip8: &mut Chip8, instruction: Instruction) {
             if (pixel & ((1 << 7) >> bit)) != 0 {
                 let x = (x + bit) % chip8_constants::WIDTH;
                 let y = (y + row) % chip8_constants::HEIGHT;
-                let index = y * chip8_constants::WIDTH + x;
+                // let index = y * chip8_constants::WIDTH + x;
+                let index = (y * chip8_constants::WIDTH).wrapping_add(x);
 
                 if chip8.display[index] {
                     chip8.registers[0xF] = 1;

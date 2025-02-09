@@ -4,7 +4,8 @@ use super::super::{Chip8, Instruction};
 ///
 /// Vx = Vx + nn.
 fn ADD_Vx_byte(chip8: &mut Chip8, instruction: Instruction) {
-    chip8.registers[instruction.x as usize] += instruction.nn;
+    chip8.registers[instruction.x as usize] =
+        chip8.registers[instruction.x as usize].wrapping_add(instruction.nn);
 }
 
 pub fn _7xxx(chip8: &mut Chip8, instruction: Instruction) {
