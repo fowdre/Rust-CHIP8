@@ -1,3 +1,6 @@
+use rodio::{Decoder, OutputStream, Sink};
+use std::sync::{Arc, Mutex};
+
 use super::constants::chip8_constants;
 
 mod instructions;
@@ -21,6 +24,9 @@ pub struct Chip8 {
     display: [bool; 64 * 32],
     opcode: u16,
     lookup: [fn(&mut Chip8, Instruction); 16],
+
+    sound_sink: Arc<Mutex<Sink>>,
+    _audio_stream: OutputStream,
 }
 
 pub struct Instruction {
@@ -34,6 +40,10 @@ pub struct Instruction {
 
 impl Chip8 {
     pub fn new() -> Self {
+        let (stream, sound_sink) =
+            rodio::OutputStream::try_default().expect("Failed to create output stream");
+        let sound_sink = Sink::try_new(&sound_sink).expect("Failed to create sound sink");
+
         Self {
             registers: [0; 16],
             memory: [0; 4096],
@@ -65,6 +75,9 @@ impl Chip8 {
                 instructions::_Exxx::_Exxx,
                 instructions::_Fxxx::_Fxxx,
             ],
+
+            sound_sink: Arc::new(Mutex::new(sound_sink)),
+            _audio_stream: stream,
         }
     }
 
@@ -119,8 +132,16 @@ impl Chip8 {
         }
 
         if self.sound_timer > 0 {
-            if self.sound_timer == 1 {
-                println!("BEEP!");
+            // if !self.is_sound_playing {
+            let sound_sink = self.sound_sink.lock().unwrap();
+            if sound_sink.empty() {
+                let file =
+                    std::fs::File::open("assets/audio/orb.mp3").expect("Failed to open audio file");
+                let source = Decoder::new(std::io::BufReader::new(file))
+                    .expect("Failed to create audio decoder");
+
+                sound_sink.append(source);
+                sound_sink.play();
             }
             self.sound_timer -= 1;
         }
