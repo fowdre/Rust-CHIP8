@@ -18,8 +18,6 @@ pub struct Chip8 {
     sound_timer: u8,
     keypad: [bool; 16],
     key_pressed: bool,
-    key_register: u8,
-    pause_flag: bool,
     display: [bool; 64 * 32],
     opcode: u16,
     lookup: [fn(&mut Chip8, Instruction); 16],
@@ -47,8 +45,6 @@ impl Chip8 {
             sound_timer: 0,
             keypad: [false; 16],
             key_pressed: false,
-            key_register: 0,
-            pause_flag: false,
             display: [false; 64 * 32],
             opcode: 0,
             lookup: [
@@ -63,10 +59,10 @@ impl Chip8 {
                 instructions::_8xxx::_8xxx,
                 instructions::_9xxx::_9xxx,
                 instructions::_Axxx::_Axxx,
-                test, // B
-                test, // C
+                instructions::_Bxxx::_Bxxx,
+                instructions::_Cxxx::_Cxxx,
                 instructions::_Dxxx::_Dxxx,
-                test, // E
+                instructions::_Exxx::_Exxx,
                 instructions::_Fxxx::_Fxxx,
             ],
         }
@@ -92,6 +88,15 @@ impl Chip8 {
         }
     }
 
+    pub fn update_key(&mut self, key: u8, pressed: bool) {
+        if !self.keypad[key as usize] && pressed {
+            self.keypad[key as usize] = pressed;
+        }
+        if self.keypad[key as usize] && !pressed {
+            self.keypad[key as usize] = pressed;
+        }
+    }
+
     pub fn step(&mut self) {
         self.pc %= chip8_constants::RAM_SIZE as u16;
         self.opcode =
@@ -108,5 +113,16 @@ impl Chip8 {
         };
 
         (self.lookup[((self.opcode & 0xF000) >> 12) as usize])(self, instruction);
+
+        if self.delay_timer > 0 {
+            self.delay_timer -= 1;
+        }
+
+        if self.sound_timer > 0 {
+            if self.sound_timer == 1 {
+                println!("BEEP!");
+            }
+            self.sound_timer -= 1;
+        }
     }
 }

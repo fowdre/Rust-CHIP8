@@ -11,5 +11,8 @@ pub mod _7xxx;
 pub mod _8xxx;
 pub mod _9xxx;
 pub mod _Axxx;
+pub mod _Bxxx;
+pub mod _Cxxx;
 pub mod _Dxxx;
+pub mod _Exxx;
 pub mod _Fxxx;

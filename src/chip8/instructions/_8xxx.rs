@@ -3,28 +3,28 @@ use super::super::{Chip8, Instruction};
 /// 0x8xy0 - LD Vx, Vy
 ///
 /// Vx = Vy.
-pub fn LD_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn LD_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     chip8.registers[instruction.x as usize] = chip8.registers[instruction.y as usize];
 }
 
 /// 0x8xy1 - OR Vx, Vy
 ///
 /// Vx = Vx | Vy.
-pub fn OR_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn OR_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     chip8.registers[instruction.x as usize] |= chip8.registers[instruction.y as usize];
 }
 
 /// 0x8xy2 - AND Vx, Vy
 ///
 /// Vx = Vx & Vy.
-pub fn AND_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn AND_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     chip8.registers[instruction.x as usize] &= chip8.registers[instruction.y as usize];
 }
 
 /// 0x8xy3 - XOR Vx, Vy
 ///
 /// Vx = Vx ^ Vy.
-pub fn XOR_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn XOR_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     chip8.registers[instruction.x as usize] ^= chip8.registers[instruction.y as usize];
 }
 
@@ -32,7 +32,7 @@ pub fn XOR_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
 ///
 /// Vx = Vx + Vy.
 /// Set VF to 1 if there is a carry, 0 otherwise.
-pub fn ADD_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn ADD_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     let (result, overflow) = chip8.registers[instruction.x as usize]
         .overflowing_add(chip8.registers[instruction.y as usize]);
 
@@ -44,7 +44,7 @@ pub fn ADD_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
 ///
 /// Vx = Vx - Vy.
 /// Set VF to 0 if there is a borrow, 1 otherwise.
-pub fn SUB_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn SUB_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     let (result, overflow) = chip8.registers[instruction.x as usize]
         .overflowing_sub(chip8.registers[instruction.y as usize]);
 
@@ -56,7 +56,7 @@ pub fn SUB_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
 ///
 /// Vx = Vx >> 1.
 /// Set VF to the least significant bit of Vx before the shift.
-pub fn SHR_Vx(chip8: &mut Chip8, instruction: Instruction) {
+fn SHR_Vx(chip8: &mut Chip8, instruction: Instruction) {
     let temp = chip8.registers[instruction.x as usize];
 
     chip8.registers[instruction.x as usize] >>= 1;
@@ -66,7 +66,7 @@ pub fn SHR_Vx(chip8: &mut Chip8, instruction: Instruction) {
 /// 0x8xy7 - SUBN Vx, Vy
 ///
 /// Set VF to 0 if Vy > Vx, 1 otherwise. Then Vx = Vy - Vx.
-pub fn SUBN_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
+fn SUBN_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     let temp = chip8.registers[instruction.y as usize];
     let (result, overflow) = chip8.registers[instruction.y as usize]
         .overflowing_sub(chip8.registers[instruction.x as usize]);
@@ -79,7 +79,7 @@ pub fn SUBN_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
 ///
 /// Vx = Vx << 1.
 /// Set VF to the most significant bit of Vx before the shift.
-pub fn SHL_Vx(chip8: &mut Chip8, instruction: Instruction) {
+fn SHL_Vx(chip8: &mut Chip8, instruction: Instruction) {
     let temp = chip8.registers[instruction.x as usize];
 
     chip8.registers[instruction.x as usize] <<= 1;

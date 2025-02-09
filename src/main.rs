@@ -49,6 +49,23 @@ fn main() -> Result<(), std::io::Error> {
             // The inside of this block will run at `constants::FPS` frames per second
             timer += constants::FRAME_TIME - frame_time;
 
+            chip8.update_key(0x1, rl_handle.is_key_down(KeyboardKey::KEY_ONE));
+            chip8.update_key(0x2, rl_handle.is_key_down(KeyboardKey::KEY_TWO));
+            chip8.update_key(0x3, rl_handle.is_key_down(KeyboardKey::KEY_THREE));
+            chip8.update_key(0xC, rl_handle.is_key_down(KeyboardKey::KEY_FOUR));
+            chip8.update_key(0x4, rl_handle.is_key_down(KeyboardKey::KEY_Q));
+            chip8.update_key(0x5, rl_handle.is_key_down(KeyboardKey::KEY_W));
+            chip8.update_key(0x6, rl_handle.is_key_down(KeyboardKey::KEY_E));
+            chip8.update_key(0xD, rl_handle.is_key_down(KeyboardKey::KEY_R));
+            chip8.update_key(0x7, rl_handle.is_key_down(KeyboardKey::KEY_A));
+            chip8.update_key(0x8, rl_handle.is_key_down(KeyboardKey::KEY_S));
+            chip8.update_key(0x9, rl_handle.is_key_down(KeyboardKey::KEY_D));
+            chip8.update_key(0xE, rl_handle.is_key_down(KeyboardKey::KEY_F));
+            chip8.update_key(0xA, rl_handle.is_key_down(KeyboardKey::KEY_Z));
+            chip8.update_key(0x0, rl_handle.is_key_down(KeyboardKey::KEY_X));
+            chip8.update_key(0xB, rl_handle.is_key_down(KeyboardKey::KEY_C));
+            chip8.update_key(0xF, rl_handle.is_key_down(KeyboardKey::KEY_V));
+
             chip8.step();
         }
 
