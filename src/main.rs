@@ -3,10 +3,17 @@
 #![warn(missing_debug_implementations, rust_2018_idioms)]
 
 use raylib::prelude::*;
+mod chip8;
 mod constants;
 mod draw;
 
-fn main() {
+fn main() -> Result<(), std::io::Error> {
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() < 2 {
+        eprintln!("[Usage] <ROM file>");
+        std::process::exit(1);
+    }
+
     // Init
     let (mut rl_handle, rl_thread) = raylib::init()
         .size(640 * 6, 320 * 6)
@@ -27,7 +34,10 @@ fn main() {
     );
     display.center(&rl_handle);
 
-    let mut screen = [false; constants::SCREEN_WIDTH * constants::SCREEN_HEIGHT];
+    // Emulator
+    let mut chip8 = chip8::Chip8::new();
+    chip8.load_rom(&args[1])?;
+    chip8.load_fontset();
 
     let mut timer = 0.0;
     while !rl_handle.window_should_close() {
@@ -41,11 +51,13 @@ fn main() {
         }
 
         // Non frame-rate dependent logic here
-        display.update(&mut rl_handle, &rl_thread, &screen);
+        // display.update(&mut rl_handle, &rl_thread, &screen);
 
         // Drawing
         let mut d = rl_handle.begin_drawing(&rl_thread);
         d.clear_background(Color::new(50, 50, 50, 255));
         display.draw(&mut d);
     }
+
+    Ok(())
 }
