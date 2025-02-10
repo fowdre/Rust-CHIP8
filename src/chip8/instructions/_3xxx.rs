@@ -9,6 +9,7 @@ fn SE_Vx_byte(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// 0x3xnn - SE Vx, byte
 pub fn _3xxx(chip8: &mut Chip8, instruction: Instruction) {
     SE_Vx_byte(chip8, instruction)
 }

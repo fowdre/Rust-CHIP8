@@ -9,6 +9,7 @@ fn SNE_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// 0x9xy0 - SNE Vx, Vy
 pub fn _9xxx(chip8: &mut Chip8, instruction: Instruction) {
     SNE_Vx_Vy(chip8, instruction)
 }

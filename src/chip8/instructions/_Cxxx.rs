@@ -7,6 +7,7 @@ pub fn RND_Vx_byte(chip8: &mut Chip8, instruction: Instruction) {
     chip8.registers[instruction.x as usize] = rand::random::<u8>() & instruction.nn;
 }
 
+/// 0xCxnn - RND Vx, byte
 pub fn _Cxxx(chip8: &mut Chip8, instruction: Instruction) {
     RND_Vx_byte(chip8, instruction)
 }

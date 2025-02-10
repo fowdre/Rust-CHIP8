@@ -9,6 +9,7 @@ fn SNE_Vx_byte(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// 0x4xnn - SNE Vx, byte
 pub fn _4xxx(chip8: &mut Chip8, instruction: Instruction) {
     SNE_Vx_byte(chip8, instruction)
 }

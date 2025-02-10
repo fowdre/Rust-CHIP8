@@ -7,6 +7,7 @@ fn JP_addr(chip8: &mut Chip8, instruction: Instruction) {
     chip8.pc = instruction.nnn;
 }
 
+/// 0x1nnn - JP addr
 pub fn _1xxx(chip8: &mut Chip8, instruction: Instruction) {
     JP_addr(chip8, instruction);
 }

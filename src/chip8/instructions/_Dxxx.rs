@@ -26,6 +26,7 @@ fn DRW_Vx_Vy_n(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// 0xDxxx - DRW Vx, Vy, n
 pub fn _Dxxx(chip8: &mut Chip8, instruction: Instruction) {
     DRW_Vx_Vy_n(chip8, instruction);
 }

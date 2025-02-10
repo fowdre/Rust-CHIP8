@@ -18,6 +18,7 @@ fn SKNP_Vx(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// Execute `0xExxx` instructions.
 pub fn _Exxx(chip8: &mut Chip8, instruction: Instruction) {
     match instruction.nn {
         0x9E => SKP_Vx(chip8, instruction),

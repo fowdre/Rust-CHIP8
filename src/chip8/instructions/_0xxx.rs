@@ -15,6 +15,7 @@ fn RET(chip8: &mut Chip8) {
     chip8.pc = chip8.stack[chip8.sp as usize];
 }
 
+/// Handle `0x0???` opcodes.
 pub fn _0xxx(chip8: &mut Chip8, instruction: Instruction) {
     match instruction.opcode {
         0x00E0 => CLS(chip8),

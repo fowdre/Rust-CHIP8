@@ -89,6 +89,7 @@ fn LD_Vx_I(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// Execute 0xFxxx instruction.
 pub fn _Fxxx(chip8: &mut Chip8, instruction: Instruction) {
     match instruction.nn {
         0x07 => LD_Vx_DT(chip8, instruction),

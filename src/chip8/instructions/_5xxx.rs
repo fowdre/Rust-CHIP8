@@ -9,6 +9,7 @@ fn SE_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
     }
 }
 
+/// 0x5xy0 - SE Vx, Vy
 pub fn _5xxx(chip8: &mut Chip8, instruction: Instruction) {
     SE_Vx_Vy(chip8, instruction)
 }

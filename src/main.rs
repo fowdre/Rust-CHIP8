@@ -1,12 +1,36 @@
-// #![warn(missing_debug_implementations, rust_2018_idioms, missing_docs)]
-// TODO: documentation
-#![warn(missing_debug_implementations, rust_2018_idioms)]
+#![warn(missing_debug_implementations, rust_2018_idioms, missing_docs)]
+
+//! # CHIP-8 Emulator
+//!
+//! This is a CHIP-8 emulator written in Rust using the `raylib` graphics library for rendering.
+//! It loads a CHIP-8 ROM file, emulates the system, and provides a graphical output.
+//!
+//! ## Features
+//! - CHIP-8 CPU emulation
+//!
+//! ## Feats
+//! - All tested ROMs from the `test` folder are working
+//! - Sound support
+//!
+//! ## Usage
+//! ```sh
+//! cargo run <ROM file>
+//! ```
+//! Example:
+//! ```sh
+//! cargo run games/PONG.ch8
+//! ```
+//! If no ROM file is provided, the program will exit with an error code.
 
 use raylib::prelude::*;
-mod chip8;
-mod constants;
-mod draw;
+/// CHIP-8 emulator core module.
+pub mod chip8;
+/// Constants module for the emulator.
+pub mod constants;
+/// Rendering and display module.
+pub mod draw;
 
+#[doc(hidden)]
 fn main() -> Result<(), std::io::Error> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() < 2 {
@@ -38,6 +62,7 @@ fn main() -> Result<(), std::io::Error> {
     let mut chip8 = chip8::Chip8::new();
     chip8.load_rom(&args[1])?;
     chip8.load_fontset();
+    println!("{:?}", chip8);
 
     let mut timer = 0.0;
     while !rl_handle.window_should_close() {

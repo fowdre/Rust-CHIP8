@@ -9,6 +9,7 @@ fn CALL_addr(chip8: &mut Chip8, instruction: Instruction) {
     chip8.pc = instruction.nnn;
 }
 
+/// 0x2nnn - CALL addr
 pub fn _2xxx(chip8: &mut Chip8, instruction: Instruction) {
     CALL_addr(chip8, instruction)
 }

@@ -67,7 +67,6 @@ fn SHR_Vx(chip8: &mut Chip8, instruction: Instruction) {
 ///
 /// Set VF to 0 if Vy > Vx, 1 otherwise. Then Vx = Vy - Vx.
 fn SUBN_Vx_Vy(chip8: &mut Chip8, instruction: Instruction) {
-    let temp = chip8.registers[instruction.y as usize];
     let (result, overflow) = chip8.registers[instruction.y as usize]
         .overflowing_sub(chip8.registers[instruction.x as usize]);
 
@@ -86,6 +85,7 @@ fn SHL_Vx(chip8: &mut Chip8, instruction: Instruction) {
     chip8.registers[0xF] = (temp & (1 << 7)) >> 7;
 }
 
+/// Handle 0x8??? opcodes.
 pub fn _8xxx(chip8: &mut Chip8, instruction: Instruction) {
     match instruction.n {
         0x0 => LD_Vx_Vy(chip8, instruction),
